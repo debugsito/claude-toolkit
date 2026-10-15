@@ -1,11 +1,14 @@
 # claude-toolkit
 
-Skills y subagentes para [Claude Code](https://docs.claude.com/en/docs/claude-code), empaquetados como **dos plugins independientes**. Instalas uno, el otro o los dos, y puedes quitar cualquiera sin tocar el resto.
+Skills y subagentes para [Claude Code](https://docs.claude.com/en/docs/claude-code), empaquetados como **tres plugins independientes**. Instalas los que quieras y puedes quitar cualquiera sin tocar el resto.
 
 | Plugin | Qué es | Qué trae |
 |---|---|---|
-| `skills-devops` | Comandos `/algo` que tú invocas (o Claude cuando detecta el caso) | `/mapa-proyecto`, `/runbook-cambio-prod`, `/trello-tarjetas` |
+| `skills-devops` | Skills propias: comandos `/algo` que tú invocas (o Claude cuando detecta el caso) | `/mapa-proyecto`, `/runbook-cambio-prod`, `/trello-tarjetas` |
+| `skills-terceros` | Skills de otros autores (MIT) que uso a diario | `drawio-skill`, `find-skills` |
 | `agentes-devops` | Subagentes a los que Claude delega tareas pesadas de lectura | `code-dev`, `debug`, `qa`, `po`, `sec-review`, `k8s-triage`, `tf-dev`, `tf-review` |
+
+Las skills de PowerPoint, Word, Excel y PDF, y los plugins de Azure y Terraform, **no están aquí** porque son de Anthropic y no se pueden redistribuir. Se instalan en un minuto desde sus marketplaces oficiales: ver [Lo que uso y no está en este repo](#lo-que-uso-y-no-está-en-este-repo).
 
 ## Instalación
 
@@ -15,13 +18,19 @@ Todo se hace **dentro de Claude Code** (no en la terminal normal). Primero regis
 /plugin marketplace add debugsito/claude-toolkit
 ```
 
-Solo las skills:
+Skills propias:
 
 ```
 /plugin install skills-devops@carlos-toolkit
 ```
 
-Solo los agentes:
+Skills de terceros (draw.io y buscador de skills):
+
+```
+/plugin install skills-terceros@carlos-toolkit
+```
+
+Agentes:
 
 ```
 /plugin install agentes-devops@carlos-toolkit
@@ -62,6 +71,54 @@ Dispara con: "arma el runbook", "plan de cambio en producción", "necesito el pl
 Atiende tarjetas de Trello: ver pendientes, leer una tarjeta, resolverla en el repo correspondiente y moverla o comentarla. **Requiere** un comando local `trello` en el PATH; sin eso no sirve.
 
 Dispara con: "mis tarjetas", "atiende la tarjeta", "pásala a Hecho", o pegando un enlace `trello.com/c/...`.
+
+## Skills de terceros
+
+Van en su propio plugin para que decidas si las quieres. Las dos son MIT; el `LICENSE` original va dentro de cada carpeta.
+
+### `drawio-skill`
+
+Crea y edita diagramas de draw.io / diagrams.net como archivos `.drawio` editables: arquitectura cloud (trae iconos de Azure, AWS y GCP), UML, ERD, secuencia, BPMN, redes, swimlanes. Puede partir de una descripción o convertir desde código, Terraform, SQL o un esquema de API. También sincroniza, revisa y exporta diagramas existentes.
+
+Pide "un diagrama en draw.io" o "un `.drawio` de esta arquitectura". No se dispara sola: hay que invocarla por nombre. Origen: [Agents365-ai/drawio-skill](https://github.com/Agents365-ai/drawio-skill).
+
+### `find-skills`
+
+Busca e instala skills del ecosistema abierto de [skills.sh](https://skills.sh/). Cuando preguntas "¿hay una skill para X?" o "¿cómo hago X?", consulta el catálogo y te propone instalarla con `npx skills add`. Origen: [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills).
+
+## Lo que uso y no está en este repo
+
+Son de Anthropic y su licencia no permite copiarlas a otro repo. Se instalan desde los marketplaces oficiales con los mismos comandos de siempre.
+
+**Documentos de oficina** (PowerPoint, Word, Excel, PDF). Es lo que uso para armar presentaciones y reportes:
+
+```
+/plugin marketplace add anthropics/skills
+```
+
+```
+/plugin install document-skills@anthropic-agent-skills
+```
+
+Si usas Claude Code logueado con tu cuenta de claude.ai, estas mismas skills ya vienen sincronizadas; revisa `/plugin` o pregúntale a Claude "qué skills tienes" antes de instalarlas dos veces.
+
+**Azure, Terraform y documentación de Microsoft.** Plugins del marketplace oficial de Claude Code, que ya está registrado por defecto:
+
+```
+/plugin install azure@claude-plugins-official
+```
+
+```
+/plugin install terraform@claude-plugins-official
+```
+
+```
+/plugin install microsoft-docs@claude-plugins-official
+```
+
+Yo los instalo con alcance `project` solo en los repos donde aplican, para no cargar tokens en los demás.
+
+**Omarchy.** Tengo dos skills más (`omarchy`, `diagnose-crash`) que trae la distro Omarchy de Linux y solo sirven ahí. Si la usas, ya las tienes.
 
 ## Agentes
 
@@ -126,12 +183,15 @@ Para editarlos sin esperar a que yo publique, clona el repo y registra el market
 
 ```
 claude-toolkit/
-├── .claude-plugin/marketplace.json   # define los dos plugins
+├── .claude-plugin/marketplace.json   # define los tres plugins
 └── plugins/
-    ├── skills/
+    ├── skills/                       # skills-devops
     │   ├── .claude-plugin/plugin.json
     │   └── skills/<nombre>/SKILL.md
-    └── agentes/
+    ├── terceros/                     # skills-terceros
+    │   ├── .claude-plugin/plugin.json
+    │   └── skills/<nombre>/SKILL.md
+    └── agentes/                      # agentes-devops
         ├── .claude-plugin/plugin.json
         └── agents/<nombre>.md
 ```

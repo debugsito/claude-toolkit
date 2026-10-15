@@ -6,7 +6,12 @@
     {
       "name": "skills-devops",
       "source": "./plugins/skills",
-      "description": "Skills: mapa-proyecto, runbook-cambio-prod, trello-tarjetas"
+      "description": "Skills propias: mapa-proyecto, runbook-cambio-prod, trello-tarjetas"
+    },
+    {
+      "name": "skills-terceros",
+      "source": "./plugins/terceros",
+      "description": "Skills de terceros (MIT): drawio-skill, find-skills"
     },
     {
       "name": "agentes-devops",

@@ -1,0 +1,6 @@
+{
+  "name": "skills-terceros",
+  "version": "1.0.0",
+  "description": "Skills de terceros con licencia MIT que uso: drawio-skill (diagramas .drawio editables) y find-skills (buscar e instalar skills de skills.sh).",
+  "author": { "name": "Carlos Ramos" }
+}
