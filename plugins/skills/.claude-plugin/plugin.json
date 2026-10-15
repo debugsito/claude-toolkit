@@ -1,0 +1,6 @@
+{
+  "name": "skills-devops",
+  "version": "1.0.0",
+  "description": "Skills: mapa de proyecto multi-repo, runbook de cambio en producción cloud y atención de tarjetas Trello.",
+  "author": { "name": "Carlos Ramos" }
+}

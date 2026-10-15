@@ -1,0 +1,6 @@
+{
+  "name": "agentes-devops",
+  "version": "1.0.0",
+  "description": "Subagentes de solo lectura para código, debug, QA, seguridad, Kubernetes y Terraform, más tf-dev (escribe Terraform) y po (product owner).",
+  "author": { "name": "Carlos Ramos" }
+}

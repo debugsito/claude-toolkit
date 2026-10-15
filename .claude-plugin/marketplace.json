@@ -1,0 +1,17 @@
+{
+  "name": "carlos-toolkit",
+  "owner": { "name": "Carlos Ramos" },
+  "metadata": { "description": "Skills y subagentes de DevOps/infra, empaquetados por separado para instalar solo lo que quieras." },
+  "plugins": [
+    {
+      "name": "skills-devops",
+      "source": "./plugins/skills",
+      "description": "Skills: mapa-proyecto, runbook-cambio-prod, trello-tarjetas"
+    },
+    {
+      "name": "agentes-devops",
+      "source": "./plugins/agentes",
+      "description": "Subagentes: code-dev, debug, qa, po, sec-review, k8s-triage, tf-dev, tf-review"
+    }
+  ]
+}
